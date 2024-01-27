@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //tendria un listado de objetos y puedo acceder a ellos como accedemos a través de un array de objetos
+    fetch('https://api.github.com/users')
+    .then(response => response.json())  // convertir a json
+    .then(json => {
+        var datos = json;
+        console.log(datos[0].login);
+    })    
+    .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+
+    //esta nueva versión es para ver como puedo recorrer los datos de un json sin conocer el nombre de la propiedad a devolver
+    fetch('https://api.github.com/users')
+        .then(response => response.json())
+        .then(json => {
+            var datos = json;
+            var claves = Object.keys(datos[0]);
+            
+            for (var i = 0; i < datos.length; i++) {
+                for (var x = 0; x < claves.length; x++) {
+                    //si quiero que me devuelve el array en formato array de objetos de javascript
+                    console.log(datos[i]);
+                    //si quiero que me devuelva todos los login
+                    console.log(datos[i].login);
+                    //si quiero que me devuelva todas los valores de la propiedades de cada objeto
+                    console.log(datos[i][claves[x]]);
+                }
+            }
+        });
+   
+    </script>
+</body>
+</html>
